@@ -125,17 +125,25 @@ namespace ASF.Data
 
             var result = new List<Category>();
             var db = DatabaseFactory.CreateDatabase(ConnectionName);
-            using (var cmd = db.GetSqlStringCommand(sqlStatement))
+            try
             {
-                using (var dr = db.ExecuteReader(cmd))
+                using (var cmd = db.GetSqlStringCommand(sqlStatement))
                 {
-                    while (dr.Read())
+                    using (var dr = db.ExecuteReader(cmd))
                     {
-                        var category = LoadCategory(dr); // Mapper
-                        result.Add(category);
+                        while (dr.Read())
+                        {
+                            var category = LoadCategory(dr); // Mapper
+                            result.Add(category);
+                        }
                     }
                 }
+
+            } catch (Exception e)
+            {
+                throw e;
             }
+
 
             return result;
         }
