@@ -286,6 +286,7 @@
     </Compile>
     <Compile Include="Services\Feed\IFeedService.cs" />
     <Compile Include="Services\Feed\FeedService.cs" />
+    <Compile Include="Services\Utils\CustomConverterUtils.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

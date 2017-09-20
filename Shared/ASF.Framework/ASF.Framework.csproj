@@ -61,6 +61,7 @@
     <Compile Include="Utilities\DateUtils.cs" />
     <Compile Include="Utilities\EnumUtils.cs" />
     <Compile Include="Utilities\ExtensionMethods.cs" />
+    <Compile Include="Utilities\FormCollectionUtils.cs" />
     <Compile Include="Utilities\GuidComb.cs" />
     <Compile Include="Utilities\LanguageUtils.cs" />
     <Compile Include="Utilities\Markdown.cs" />

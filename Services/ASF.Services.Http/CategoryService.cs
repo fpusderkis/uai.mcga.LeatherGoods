@@ -111,9 +111,9 @@ namespace ASF.Services.Http
             }
         }
 
-        [HttpGet]
+        [HttpDelete]
         [Route("Remove/{id}")]
-        public void Remove(int id)
+        public void Remove( int id)
         {
             try
             {

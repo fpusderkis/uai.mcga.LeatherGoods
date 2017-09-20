@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ASF.Entities;
+using ASF.UI.WbSite.Services.Utils;
 
 namespace ASF.UI.WbSite.Areas.Category.Controllers
 {
@@ -38,6 +40,10 @@ namespace ASF.UI.WbSite.Areas.Category.Controllers
             {
                 // TODO: Add insert logic here
 
+                var category = CustomConverterUtils.MapFormCollection<ASF.Entities.Category>(collection);
+
+                categoryProcess.SaveCategory(category);
+
                 return RedirectToAction("Index");
             }
             catch
@@ -49,6 +55,8 @@ namespace ASF.UI.WbSite.Areas.Category.Controllers
         // GET: Category/Category/Edit/5
         public ActionResult Edit(int id)
         {
+            
+
             return View();
         }
 
@@ -58,8 +66,7 @@ namespace ASF.UI.WbSite.Areas.Category.Controllers
         {
             try
             {
-                // TODO: Add update logic here
-
+                
                 return RedirectToAction("Index");
             }
             catch
@@ -71,7 +78,10 @@ namespace ASF.UI.WbSite.Areas.Category.Controllers
         // GET: Category/Category/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            
+            categoryProcess.DeleteCategory(id);
+            
+            return RedirectToAction("Index");
         }
 
         // POST: Category/Category/Delete/5
@@ -80,7 +90,7 @@ namespace ASF.UI.WbSite.Areas.Category.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
+                
 
                 return RedirectToAction("Index");
             }

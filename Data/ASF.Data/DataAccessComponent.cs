@@ -9,6 +9,7 @@ using System.Data;
 using System.Configuration;
 using System.Text.RegularExpressions;
 using Microsoft.Practices.EnterpriseLibrary.Data;
+using System.Data.Entity;
 
 namespace ASF.Data
 {
@@ -24,6 +25,8 @@ namespace ASF.Data
             // Enterprise Library DAAB 6.0 - Database Factories.
             DatabaseFactory.SetDatabaseProviderFactory(new DatabaseProviderFactory(), false);
         }
+
+        public LeatherContext DataBaseContext { get { return new LeatherContext(); } }
 
         protected int PageSize => Convert.ToInt32(ConfigurationManager.AppSettings["PageSize"]);
         //protected int PageSize

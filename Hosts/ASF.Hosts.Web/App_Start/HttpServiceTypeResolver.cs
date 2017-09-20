@@ -22,7 +22,11 @@ namespace ASF.Hosts.Web
                           typeof(IHttpController).IsAssignableFrom(type) &&
                           type.Namespace.EndsWith(".Services.Http");
 
-            return result;
+            if (result)
+            {
+                return true;
+            }
+            return false;
 
         }
     }

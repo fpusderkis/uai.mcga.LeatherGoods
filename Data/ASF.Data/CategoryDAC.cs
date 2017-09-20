@@ -20,7 +20,7 @@ namespace ASF.Data
     /// <summary>
     /// 
     /// </summary>
-    public class CategoryDac : DataAccessComponent
+    public class CategoryDAC : DataAccessComponent
     {
         /// <summary>
         /// 
@@ -29,22 +29,14 @@ namespace ASF.Data
         /// <returns></returns>
         public Category Create(Category category)
         {
-            const string sqlStatement ="INSERT INTO dbo.Category ([Name], [CreatedOn], [CreatedBy], [ChangedOn], [ChangedBy]) " +
-                "VALUES(@Name, @CreatedOn, @CreatedBy, @ChangedOn, @ChangedBy); SELECT SCOPE_IDENTITY();";
+            using (var dbc = DataBaseContext) {
 
-            var db = DatabaseFactory.CreateDatabase(ConnectionName);
-            using (var cmd = db.GetSqlStringCommand(sqlStatement))
-            {
-                db.AddInParameter(cmd, "@Name", DbType.String, category.Name);
-                db.AddInParameter(cmd, "@CreatedOn", DbType.DateTime2, category.CreatedOn);
-                db.AddInParameter(cmd, "@CreatedBy", DbType.Int32, category.CreatedBy);
-                db.AddInParameter(cmd, "@ChangedOn", DbType.DateTime2, category.ChangedOn);
-                db.AddInParameter(cmd, "@ChangedBy", DbType.Int32, category.ChangedBy);
-                // Obtener el valor de la primary key.
-                category.Id = Convert.ToInt32(db.ExecuteScalar(cmd));
+                var savedCategory = dbc.Category.Add(category);
+                dbc.SaveChanges();
+                return savedCategory;
+
             }
-
-            return category;
+            
         }
 
         /// <summary>
@@ -53,25 +45,10 @@ namespace ASF.Data
         /// <param name="category"></param>
         public void UpdateById(Category category)
         {
-            const string sqlStatement = "UPDATE dbo.Category " +
-                "SET [Name]=@Name, " +
-                    "[CreatedOn]=@CreatedOn, " +
-                    "[CreatedBy]=@CreatedBy, " +
-                    "[ChangedOn]=@ChangedOn, " +
-                    "[ChangedBy]=@ChangedBy " +
-                "WHERE [Id]=@Id ";
-
-            var db = DatabaseFactory.CreateDatabase(ConnectionName);
-            using (var cmd = db.GetSqlStringCommand(sqlStatement))
+            using (var dbc = DataBaseContext)
             {
-                db.AddInParameter(cmd, "@Name", DbType.String, category.Name);
-                db.AddInParameter(cmd, "@CreatedOn", DbType.DateTime2, category.CreatedOn);
-                db.AddInParameter(cmd, "@CreatedBy", DbType.Int32, category.CreatedBy);
-                db.AddInParameter(cmd, "@ChangedOn", DbType.DateTime2, category.ChangedOn);
-                db.AddInParameter(cmd, "@ChangedBy", DbType.Int32, category.ChangedBy);
-                db.AddInParameter(cmd, "@Id", DbType.Int32, category.Id);
-
-                db.ExecuteNonQuery(cmd);
+                dbc.Entry(category).State = System.Data.Entity.EntityState.Modified;
+                dbc.SaveChanges();
             }
         }
 
@@ -81,12 +58,13 @@ namespace ASF.Data
         /// <param name="id"></param>
         public void DeleteById(int id)
         {
-            const string sqlStatement = "DELETE dbo.Category WHERE [Id]=@Id ";
-            var db = DatabaseFactory.CreateDatabase(ConnectionName);
-            using (var cmd = db.GetSqlStringCommand(sqlStatement))
+            using (var dbc = DataBaseContext)
             {
-                db.AddInParameter(cmd, "@Id", DbType.Int32, id);
-                db.ExecuteNonQuery(cmd);
+                Category category = new Category { Id = id };
+                dbc.Category.Attach(category);
+                dbc.Category.Remove(category);
+
+                dbc.SaveChanges();
             }
         }
 
@@ -97,21 +75,10 @@ namespace ASF.Data
         /// <returns></returns>
         public Category SelectById(int id)
         {
-            const string sqlStatement = "SELECT [Id], [Name], [CreatedOn], [CreatedBy], [ChangedOn], [ChangedBy] " +
-                "FROM dbo.Category WHERE [Id]=@Id ";
-
-            Category category = null;
-            var db = DatabaseFactory.CreateDatabase(ConnectionName);
-            using (var cmd = db.GetSqlStringCommand(sqlStatement))
+            using (var dbc = new LeatherContext())
             {
-                db.AddInParameter(cmd, "@Id", DbType.Int32, id);
-                using (var dr = db.ExecuteReader(cmd))
-                {
-                    if (dr.Read()) category = LoadCategory(dr);
-                }
+                return dbc.Category.Find(id);
             }
-
-            return category;
         }
 
         /// <summary>
@@ -120,32 +87,16 @@ namespace ASF.Data
         /// <returns></returns>		
         public List<Category> Select()
         {
-            // WARNING! Performance
-            const string sqlStatement = "SELECT [Id], [Name], [CreatedOn], [CreatedBy], [ChangedOn], [ChangedBy] FROM dbo.Category ";
 
-            var result = new List<Category>();
-            var db = DatabaseFactory.CreateDatabase(ConnectionName);
-            try
-            {
-                using (var cmd = db.GetSqlStringCommand(sqlStatement))
-                {
-                    using (var dr = db.ExecuteReader(cmd))
-                    {
-                        while (dr.Read())
-                        {
-                            var category = LoadCategory(dr); // Mapper
-                            result.Add(category);
-                        }
-                    }
-                }
 
-            } catch (Exception e)
+            using (var dbc = new LeatherContext())
             {
-                throw e;
+                dbc.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+
+                return dbc.Category.ToList();
             }
 
-
-            return result;
+            
         }
 
         /// <summary>

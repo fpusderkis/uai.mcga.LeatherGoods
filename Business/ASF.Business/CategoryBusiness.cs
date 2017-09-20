@@ -19,6 +19,8 @@ namespace ASF.Business
     /// </summary>
     public class CategoryBusiness
     {
+
+        public CategoryDAC categoryDAC { get; set; } = new CategoryDAC();
         /// <summary>
         /// Add method. 
         /// </summary>
@@ -26,8 +28,7 @@ namespace ASF.Business
         /// <returns></returns>
         public Category Add(Category category)
         {
-            var categoryDac = new CategoryDac();
-            return categoryDac.Create(category);
+            return categoryDAC.Create(category);
         }
 
         /// <summary>
@@ -36,8 +37,7 @@ namespace ASF.Business
         /// <param name="id"></param>
         public void Remove(int id)
         {
-            var categoryDac = new CategoryDac();
-            categoryDac.DeleteById(id);
+            categoryDAC.DeleteById(id);
         }
 
         /// <summary>
@@ -46,8 +46,7 @@ namespace ASF.Business
         /// <returns></returns>
         public List<Category> All()
         {
-            var categoryDac = new CategoryDac();
-            var result = categoryDac.Select();
+            var result = categoryDAC.Select();
             return result;
         }
 
@@ -58,8 +57,7 @@ namespace ASF.Business
         /// <returns></returns>
         public Category Find(int id)
         {
-            var categoryDac = new CategoryDac();
-            var result = categoryDac.SelectById(id);
+            var result = categoryDAC.SelectById(id);
             return result;
         }
 
@@ -69,8 +67,7 @@ namespace ASF.Business
         /// <param name="category"></param>
         public void Edit(Category category)
         {
-            var categoryDac = new CategoryDac();
-            categoryDac.UpdateById(category);
+            categoryDAC.UpdateById(category);
         }
     }
 }

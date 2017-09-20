@@ -99,5 +99,42 @@ namespace ASF.UI.Process
             }
 
         }
+
+
+        public static HttpResponseMessage HttpPut<T>(string path, T value, String mediaType = "serviceUrl")
+        {
+            var pathAndQuery = path.EndsWith("/") ? path : path + "/";
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["serviceUrl"]);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(mediaType));
+                var response = client.PutAsJsonAsync(pathAndQuery,value).Result;
+                response.EnsureSuccessStatusCode();
+
+                return response;
+            }
+
+
+        }
+
+        public static HttpResponseMessage HttpDelete(string path)
+        {
+            return HttpDelete(path, MediaType.Json);
+        }
+
+        public static HttpResponseMessage HttpDelete(string path, string mediaType = MediaType.Json)
+        {
+            var pathAndQuery = path.EndsWith("/") ? path : path + "/";
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["serviceUrl"]);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(mediaType));
+                var response = client.DeleteAsync(pathAndQuery).Result;
+                response.EnsureSuccessStatusCode();
+                return response;
+            }
+        }
     }
 }

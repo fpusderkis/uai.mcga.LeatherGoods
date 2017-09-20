@@ -18,6 +18,7 @@ namespace ASF.Entities
     /// <summary>
     /// Represents a row of entity data.
     /// </summary>
+    ///
     [Serializable]
     [DataContract]
     public partial class Category : EntityBase
