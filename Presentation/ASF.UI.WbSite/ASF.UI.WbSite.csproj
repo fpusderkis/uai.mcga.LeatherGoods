@@ -63,6 +63,9 @@
       <HintPath>..\..\packages\Autofac.Owin.4.1.0\lib\net45\Autofac.Integration.Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Boilerplate.Web.Mvc5">
       <HintPath>..\..\packages\Boilerplate.Web.Mvc5.1.0.25\lib\net45\Boilerplate.Web.Mvc5.dll</HintPath>
     </Reference>
@@ -101,6 +104,9 @@
     </Reference>
     <Reference Include="Glimpse.Mvc5">
       <HintPath>..\..\packages\Glimpse.Mvc5.1.5.3\lib\net45\Glimpse.Mvc5.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a">
+      <HintPath>..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -288,6 +294,7 @@
     <Compile Include="Services\Feed\FeedService.cs" />
     <Compile Include="Services\Utils\CustomConverterUtils.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utilities\RequestUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -413,6 +420,7 @@
     <None Include="NWebsecConfig\HttpHeaderSecurityModuleConfig.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="packages.config" />
     <None Include="ReadMe.html" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
     <Content Include="Content\bootstrap\site.css">
@@ -565,6 +573,10 @@
     <ProjectReference Include="..\..\Shared\ASF.Entities\ASF.Entities.csproj">
       <Project>{5f7c08e8-891e-41c7-9e8d-e94b75222c0b}</Project>
       <Name>ASF.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\ASF.Framework\ASF.Framework.csproj">
+      <Project>{b07faacc-7f82-4fdb-9bbb-666711eef0f4}</Project>
+      <Name>ASF.Framework</Name>
     </ProjectReference>
     <ProjectReference Include="..\ASF.UI.Process\ASF.UI.Process.csproj">
       <Project>{16102133-b8dc-4516-b714-c2802ecfa923}</Project>

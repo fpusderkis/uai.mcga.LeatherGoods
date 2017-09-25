@@ -47,6 +47,7 @@ namespace ASF.Data
         {
             using (var dbc = DataBaseContext)
             {
+                category.ChangedOn = new DateTime();
                 dbc.Entry(category).State = System.Data.Entity.EntityState.Modified;
                 dbc.SaveChanges();
             }

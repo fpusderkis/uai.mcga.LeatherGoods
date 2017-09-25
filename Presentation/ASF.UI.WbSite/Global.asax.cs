@@ -1,4 +1,5 @@
-﻿using ASF.UI.WbSite.Services.Logging;
+﻿using System.IO;
+using ASF.UI.WbSite.Services.Logging;
 
 namespace ASF.UI.WbSite
 {
@@ -23,6 +24,8 @@ namespace ASF.UI.WbSite
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            log4net.Config.XmlConfigurator.Configure(new FileInfo(Server.MapPath("~/Web.config")));
+
         }
 
         /// <summary>

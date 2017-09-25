@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a">
+      <HintPath>..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -62,6 +65,10 @@
     <ProjectReference Include="..\..\Shared\ASF.Entities\ASF.Entities.csproj">
       <Project>{5F7C08E8-891E-41C7-9E8D-E94B75222C0B}</Project>
       <Name>ASF.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\ASF.Framework\ASF.Framework.csproj">
+      <Project>{B07FAACC-7F82-4FDB-9BBB-666711EEF0F4}</Project>
+      <Name>ASF.Framework</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

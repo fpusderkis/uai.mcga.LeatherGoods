@@ -67,6 +67,7 @@ namespace ASF.Business
         /// <param name="category"></param>
         public void Edit(Category category)
         {
+            
             categoryDAC.UpdateById(category);
         }
     }
