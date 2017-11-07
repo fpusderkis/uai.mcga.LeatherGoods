@@ -58,8 +58,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractDAC.cs" />
     <Compile Include="CategoryDAC.cs" />
+    <Compile Include="ClientDAC.cs" />
     <Compile Include="DataAccessComponent.cs" />
+    <Compile Include="DealerDAC.cs" />
     <Compile Include="LeatherContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

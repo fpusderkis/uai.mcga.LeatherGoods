@@ -10,14 +10,14 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using ASF.Entities;
 using ASF.Data;
-
+using System.Diagnostics;
 
 namespace ASF.Business
 {
     /// <summary>
     /// CategoryBusiness business component.
     /// </summary>
-    public class CategoryBusiness
+    public class CategoryBusiness : AbstractBussiness
     {
 
         public CategoryDAC categoryDAC { get; set; } = new CategoryDAC();
@@ -57,7 +57,19 @@ namespace ASF.Business
         /// <returns></returns>
         public Category Find(int id)
         {
-            var result = categoryDAC.SelectById(id);
+            categoryDAC.SelectById(id);
+
+            var sw = Stopwatch.StartNew();
+
+            var directo = categoryDAC.SelectById(id);
+
+            var stg1 = sw.ElapsedMilliseconds;
+
+            var refsw = Stopwatch.StartNew();
+            var result = categoryDAC.FindById<Category>(id);
+
+            var stg2 = refsw.ElapsedMilliseconds;
+
             return result;
         }
 

@@ -44,7 +44,7 @@ namespace ASF.Framework.Http
         
         public void Dispose()
         {
-            throw new System.NotImplementedException();
+
         }
     }
 }
