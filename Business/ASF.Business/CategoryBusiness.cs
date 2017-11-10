@@ -19,8 +19,7 @@ namespace ASF.Business
     /// </summary>
     public class CategoryBusiness : AbstractBussiness
     {
-
-        public CategoryDAC categoryDAC { get; set; } = new CategoryDAC();
+        CategoryDAC categoryDAC = new CategoryDAC();
         /// <summary>
         /// Add method. 
         /// </summary>
@@ -28,7 +27,11 @@ namespace ASF.Business
         /// <returns></returns>
         public Category Add(Category category)
         {
-            return categoryDAC.Create(category);
+            
+            category.CreatedOn = DateTime.Now;
+            category.ChangedOn = category.CreatedOn;
+            var saved = categoryDAC.Save(category);
+            return saved;
         }
 
         /// <summary>
@@ -38,6 +41,7 @@ namespace ASF.Business
         public void Remove(int id)
         {
             categoryDAC.DeleteById(id);
+            
         }
 
         /// <summary>
@@ -46,6 +50,7 @@ namespace ASF.Business
         /// <returns></returns>
         public List<Category> All()
         {
+
             var result = categoryDAC.Select();
             return result;
         }
@@ -57,20 +62,8 @@ namespace ASF.Business
         /// <returns></returns>
         public Category Find(int id)
         {
-            categoryDAC.SelectById(id);
-
-            var sw = Stopwatch.StartNew();
-
-            var directo = categoryDAC.SelectById(id);
-
-            var stg1 = sw.ElapsedMilliseconds;
-
-            var refsw = Stopwatch.StartNew();
-            var result = categoryDAC.FindById<Category>(id);
-
-            var stg2 = refsw.ElapsedMilliseconds;
-
-            return result;
+            return categoryDAC.SelectById(id);
+            
         }
 
         /// <summary>
@@ -79,8 +72,13 @@ namespace ASF.Business
         /// <param name="category"></param>
         public void Edit(Category category)
         {
-            
-            categoryDAC.UpdateById(category);
+
+
+            var cat = categoryDAC.SelectById(category.Id);
+
+            cat.Name = category.Name;
+            cat.ChangedOn = DateTime.Now;
+            categoryDAC.Save(cat);
         }
     }
 }

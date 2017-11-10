@@ -23,36 +23,6 @@ namespace ASF.Data
     /// </summary>
     public class CategoryDAC : AbstractDAC<Category>
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="category"></param>
-        /// <returns></returns>
-        public Category Create(Category category)
-        {
-            using (var dbc = Context) {
-
-                var savedCategory = dbc.Category.Add(category);
-                dbc.SaveChanges();
-                return savedCategory;
-
-            }
-            
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="category"></param>
-        public void UpdateById(Category category)
-        {
-            using (var dbc = Context)
-            {
-                category.ChangedOn = new DateTime();
-                dbc.Entry(category).State = System.Data.Entity.EntityState.Modified;
-                dbc.SaveChanges();
-            }
-        }
 
         /// <summary>
         /// 
@@ -60,26 +30,15 @@ namespace ASF.Data
         /// <param name="id"></param>
         public void DeleteById(int id)
         {
-            using (var dbc = Context)
+            using (var dbc = createContext())
             {
                 Category category = new Category { Id = id };
                 dbc.Category.Attach(category);
                 dbc.Category.Remove(category);
+                dbc.SaveChanges();
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public Category SelectById(int id)
-        {
-            using (var dbc = new LeatherContext())
-            {
-                return dbc.Category.Find(id);
-            }
-        }
 
         /// <summary>
         /// 
@@ -88,26 +47,10 @@ namespace ASF.Data
         public List<Category> Select()
         {
 
-            return SelectAll();
-/*
-            using (var dbc = new LeatherContext())
-            {
-                dbc.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-
-
-                return dbc.Category.ToList<Category>();
-            }
-            */
+            return SelectAll(createContext());
             
         }
-
-        public CategoryDAC() : base(new LeatherContext()) 
-        {
-        }
         
-        public CategoryDAC(LeatherContext context) : base(context)
-        {
-        }
     }
 }
 

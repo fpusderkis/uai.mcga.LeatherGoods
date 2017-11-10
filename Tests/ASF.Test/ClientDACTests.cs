@@ -11,7 +11,7 @@ namespace ASF.Test
         [TestMethod]
         public void Test_FindClientById()
         {
-            var dac = new ClientDAC(new LeatherContext());
+            var dac = new ClientDAC();
 
             var result = dac.FindById<Client>(1);
 
