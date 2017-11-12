@@ -1,6 +1,6 @@
-﻿using BusinessException.Business;
-using BusinessException.Entities;
-using BusinessException.Services.Contracts;
+﻿using ASF.Business;
+using ASF.Entities;
+using ASF.Services.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 
-namespace BusinessException.Services.Http
+namespace ASF.Services.Http
 {
     [RoutePrefix("rest/Country")]
     public class CountryService : ApiController

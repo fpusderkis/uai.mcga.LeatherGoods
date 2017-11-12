@@ -1,10 +1,10 @@
-﻿using BusinessException.Data;
-using BusinessException.Entities;
+﻿using ASF.Data;
+using ASF.Entities;
 using System;
 using System.Collections.Generic;
 
 
-namespace BusinessException.Business
+namespace ASF.Business
 {
     public class CountryBusiness : AbstractBussiness
     {

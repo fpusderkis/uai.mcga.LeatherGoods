@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using ASF.Entities;
+﻿using ASF.Entities;
 
-namespace BusinessException.Data
+namespace ASF.Data
 {
     public class DealerDAC : AbstractDAC<Dealer>
     {

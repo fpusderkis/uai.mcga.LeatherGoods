@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BusinessException.Framework.Exceptions;
+﻿using ASF.Framework.Exceptions;
 
-namespace BusinessException.Business
+namespace ASF.Business
 {
     public class BusinessException : ApiException
     {

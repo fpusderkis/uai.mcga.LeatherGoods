@@ -1,11 +1,7 @@
-﻿using BusinessException.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ASF.Entities;
 
-namespace BusinessException.Data
+
+namespace ASF.Data
 {
     public class CountryDAC : AbstractDAC<Country>
     {
