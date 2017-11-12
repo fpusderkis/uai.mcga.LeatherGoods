@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="AbstractBussiness.cs" />
     <Compile Include="BusinessException.cs" />
+    <Compile Include="CartBusiness.cs" />
     <Compile Include="CategoryBusiness.cs" />
     <Compile Include="ClientBusiness.cs" />
     <Compile Include="CountryBusiness.cs" />
