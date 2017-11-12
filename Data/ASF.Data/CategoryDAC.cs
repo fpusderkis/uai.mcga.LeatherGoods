@@ -24,22 +24,7 @@ namespace ASF.Data
     public class CategoryDAC : AbstractDAC<Category>
     {
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        public void DeleteById(int id)
-        {
-            using (var dbc = createContext())
-            {
-                Category category = new Category { Id = id };
-                dbc.Category.Attach(category);
-                dbc.Category.Remove(category);
-                dbc.SaveChanges();
-            }
-        }
-
-
+       
         /// <summary>
         /// 
         /// </summary>

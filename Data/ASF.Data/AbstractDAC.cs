@@ -85,7 +85,9 @@ namespace ASF.Data
         {
             using (var ctx = createContext())
             {
-                return Save(ctx, entity);
+                var result = Save(ctx, entity);
+                ctx.SaveChanges();
+                return result;
             }
         }
         /// <summary>
@@ -106,6 +108,22 @@ namespace ASF.Data
                 return SelectById(ctx, id);
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        public void DeleteById(int id)
+        {
+            using (var dbc = createContext())
+            {
+                var entity = SelectById(dbc, id);
+                dbc.Entry(entity).State = EntityState.Deleted;
+                dbc.SaveChanges();
+            }
+        }
+
+
     }
 
 

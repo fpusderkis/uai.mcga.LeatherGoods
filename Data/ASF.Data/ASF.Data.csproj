@@ -61,6 +61,7 @@
     <Compile Include="AbstractDAC.cs" />
     <Compile Include="CategoryDAC.cs" />
     <Compile Include="ClientDAC.cs" />
+    <Compile Include="CountryDAC.cs" />
     <Compile Include="DataAccessComponent.cs" />
     <Compile Include="DealerDAC.cs" />
     <Compile Include="LeatherContext.cs" />

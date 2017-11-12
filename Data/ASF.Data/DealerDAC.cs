@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ASF.Entities;
 
-namespace ASF.Data
+namespace BusinessException.Data
 {
     public class DealerDAC : AbstractDAC<Dealer>
     {

@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\ApiException.cs" />
     <Compile Include="Http\HttpLoggingInterceptor.cs" />
     <Compile Include="Utilities\BotUtils.cs" />
     <Compile Include="Utilities\CensorUtils.cs" />

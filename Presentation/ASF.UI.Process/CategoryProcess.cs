@@ -24,7 +24,7 @@ namespace ASF.UI.Process
             var start = new DateTime().Millisecond;
             logger.Info("Buscando las categorias");
             
-            var response = HttpGet<AllResponse>("rest/Category/All", new Dictionary<string, object>(), MediaType.Json);
+            var response = HttpGet<AllResponse<Category>>("rest/Category/All", new Dictionary<string, object>(), MediaType.Json);
 
             var elapsedTime = DateTime.Now.Millisecond - start;
             logger.Info($"Termino la busqueda de terminales [elapsedTime: {elapsedTime}]");
@@ -33,7 +33,7 @@ namespace ASF.UI.Process
 
         public Category GetCategory(int id)
         {
-            var resp = HttpGet<FindResponse>("rest/Category/Find/" + id, new Dictionary<string, object>(),MediaType.Json);
+            var resp = HttpGet<FindResponse<Category>>("rest/Category/Find/" + id, new Dictionary<string, object>(),MediaType.Json);
 
             return resp.Result;
 
