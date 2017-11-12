@@ -22,6 +22,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASF.Data", "Data\ASF.Data\ASF.Data.csproj", "{422EB420-D9BC-4286-9E35-E9E3058DEFE8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASF.Business", "Business\ASF.Business\ASF.Business.csproj", "{1290A947-F5D1-45B8-B19A-E0F9185DE46B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B07FAACC-7F82-4FDB-9BBB-666711EEF0F4} = {B07FAACC-7F82-4FDB-9BBB-666711EEF0F4}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASF.Services.Contracts", "Services\ASF.Services.Contracts\ASF.Services.Contracts.csproj", "{D51CA5E5-FB1D-478E-9B11-A7D0BE066828}"
 EndProject
