@@ -46,6 +46,7 @@
     <Compile Include="AbstractBussiness.cs" />
     <Compile Include="BusinessException.cs" />
     <Compile Include="CategoryBusiness.cs" />
+    <Compile Include="ClientBusiness.cs" />
     <Compile Include="CountryBusiness.cs" />
     <Compile Include="DealerBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
