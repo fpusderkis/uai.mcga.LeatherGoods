@@ -76,7 +76,20 @@ namespace ASF.Data
 
         protected TEntity Save(LeatherContext ctx, TEntity entity)
         {
-            TEntity saved = ctx.Set<TEntity>().Add(entity);
+
+            if (entity.GetType().GetProperty("Id") != null)
+            {
+                int? id = (int) entity.GetType().GetProperty("Id").GetMethod.Invoke(entity,null);
+
+                if (id != null && id > 0)
+                {
+                    var updated = ctx.Set<TEntity>().Attach(entity);
+                    ctx.Entry(updated).State = EntityState.Modified;
+                    return updated;
+                }
+            }
+            
+            var saved = ctx.Set<TEntity>().Add(entity);
             
             return saved;
         }

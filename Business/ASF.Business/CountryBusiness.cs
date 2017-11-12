@@ -60,7 +60,7 @@ namespace ASF.Business
                 update.CreatedOn = DateTime.Now;
             }
 
-            if (String.IsNullOrEmpty(dto.Name) == false )
+            if (string.IsNullOrEmpty(dto.Name) == false )
             {
                 update.Name = dto.Name;
 
