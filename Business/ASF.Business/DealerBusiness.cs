@@ -79,7 +79,8 @@ namespace ASF.Business
 
             dtoToSave.ChangedOn = DateTime.Now;
             dtoToSave.ChangedBy = dto.ChangedBy;
-            dealerDAC.Save(dtoToSave);
+            dtoToSave = dealerDAC.Save(dtoToSave);
+            return dtoToSave;
         }
     }
 }

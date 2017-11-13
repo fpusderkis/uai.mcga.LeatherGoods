@@ -29,6 +29,7 @@ namespace ASF.Business
             update.Rowid = dto.Rowid == Guid.Empty ? Guid.NewGuid() : dto.Rowid;
             
             update.ChangedOn = DateTime.Now;
+            update.ChangedBy = dto.ChangedBy;
             var saved = cartDAC.Save(dto);
             return saved;
         }

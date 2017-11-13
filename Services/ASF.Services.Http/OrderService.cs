@@ -8,21 +8,21 @@ using ASF.Services.Contracts;
 
 namespace ASF.Services.Http
 {
-    [RoutePrefix("rest/Product")]
-    public class ProductService : ApiController
+    [RoutePrefix("rest/Order")]
+    public class OrderService : ApiController
     {
-        private ProductBusiness productBusiness = new ProductBusiness();
+        private OrderBusiness orderBusiness = new OrderBusiness();
         readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         [HttpPost]
         [Route("Add")]
-        public Product Add(Product dto)
+        public Order Add(Order dto)
         {
 
             logger.Info("Start to add new cateory");
             try
             {
-                return productBusiness.Save(dto);
+                return orderBusiness.Save(dto);
             }
             catch (Exception ex)
             {
@@ -38,13 +38,13 @@ namespace ASF.Services.Http
 
         [HttpGet]
         [Route("All")]
-        public AllResponse<Product> All()
+        public AllResponse<Order> All()
         {
             try
             {
-                var response = new AllResponse<Product>();
+                var response = new AllResponse<Order>();
 
-                response.Result = productBusiness.All();
+                response.Result = orderBusiness.All();
                 return response;
             }
             catch (Exception ex)
@@ -61,11 +61,11 @@ namespace ASF.Services.Http
 
         [HttpPut]
         [Route("Edit")]
-        public Product Edit(Product product)
+        public Order Edit(Order product)
         {
             try
             {
-                return productBusiness.Save(product);
+                return orderBusiness.Save(product);
             }
             catch (Exception ex)
             {
@@ -81,14 +81,14 @@ namespace ASF.Services.Http
 
         [HttpGet]
         [Route("Find/{id}")]
-        public FindResponse<Product> Find(int id)
+        public FindResponse<Order> Find(int id)
         {
 
             logger.Info($"Inicio de la busqueda de la categoria con id {id}");
             try
             {
-                var response = new FindResponse<Product>();
-                response.Result = productBusiness.Find(id);
+                var response = new FindResponse<Order>();
+                response.Result = orderBusiness.Find(id);
                 return response;
             }
             catch (Exception ex)
@@ -110,7 +110,7 @@ namespace ASF.Services.Http
         {
             try
             {
-                productBusiness.Remove(id);
+                orderBusiness.Remove(id);
             }
             catch (Exception ex)
             {
@@ -123,6 +123,19 @@ namespace ASF.Services.Http
                 throw new HttpResponseException(httpError);
             }
         }
-        
+
+        [HttpPost]
+        [Route("detail/Add")]
+        public void AddDetail(OrderDetail detail)
+        {
+            orderBusiness.AddOrderDetail(detail);
+        }
+
+        [HttpDelete]
+        [Route("detail/{orderId}/{detailId}")]
+        public void RemoveDetail(int orderId, int detailId)
+        {
+            orderBusiness.RemoveOrderDetail(orderId,detailId);
+        }
     }
 }

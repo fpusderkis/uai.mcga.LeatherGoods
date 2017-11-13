@@ -8,21 +8,21 @@ using ASF.Services.Contracts;
 
 namespace ASF.Services.Http
 {
-    [RoutePrefix("rest/Product")]
-    public class ProductService : ApiController
+    [RoutePrefix("rest/Rating")]
+    public class RatingService : ApiController
     {
-        private ProductBusiness productBusiness = new ProductBusiness();
+        private RatingBusiness ratingBusiness = new RatingBusiness();
         readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         [HttpPost]
         [Route("Add")]
-        public Product Add(Product dto)
+        public Rating Add(Rating dto)
         {
 
             logger.Info("Start to add new cateory");
             try
             {
-                return productBusiness.Save(dto);
+                return ratingBusiness.Save(dto);
             }
             catch (Exception ex)
             {
@@ -38,13 +38,13 @@ namespace ASF.Services.Http
 
         [HttpGet]
         [Route("All")]
-        public AllResponse<Product> All()
+        public AllResponse<Rating> All()
         {
             try
             {
-                var response = new AllResponse<Product>();
+                var response = new AllResponse<Rating>();
 
-                response.Result = productBusiness.All();
+                response.Result = ratingBusiness.All();
                 return response;
             }
             catch (Exception ex)
@@ -61,11 +61,11 @@ namespace ASF.Services.Http
 
         [HttpPut]
         [Route("Edit")]
-        public Product Edit(Product product)
+        public Rating Edit(Rating rating)
         {
             try
             {
-                return productBusiness.Save(product);
+                return ratingBusiness.Save(rating);
             }
             catch (Exception ex)
             {
@@ -81,14 +81,14 @@ namespace ASF.Services.Http
 
         [HttpGet]
         [Route("Find/{id}")]
-        public FindResponse<Product> Find(int id)
+        public FindResponse<Rating> Find(int id)
         {
 
             logger.Info($"Inicio de la busqueda de la categoria con id {id}");
             try
             {
-                var response = new FindResponse<Product>();
-                response.Result = productBusiness.Find(id);
+                var response = new FindResponse<Rating>();
+                response.Result = ratingBusiness.Find(id);
                 return response;
             }
             catch (Exception ex)
@@ -110,7 +110,7 @@ namespace ASF.Services.Http
         {
             try
             {
-                productBusiness.Remove(id);
+                ratingBusiness.Remove(id);
             }
             catch (Exception ex)
             {
@@ -123,6 +123,7 @@ namespace ASF.Services.Http
                 throw new HttpResponseException(httpError);
             }
         }
+        
         
     }
 }
