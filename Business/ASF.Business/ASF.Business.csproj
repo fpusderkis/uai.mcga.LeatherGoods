@@ -46,10 +46,12 @@
     <Compile Include="AbstractBussiness.cs" />
     <Compile Include="BusinessException.cs" />
     <Compile Include="CartBusiness.cs" />
+    <Compile Include="CartItemBusiness.cs" />
     <Compile Include="CategoryBusiness.cs" />
     <Compile Include="ClientBusiness.cs" />
     <Compile Include="CountryBusiness.cs" />
     <Compile Include="DealerBusiness.cs" />
+    <Compile Include="ProductBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
