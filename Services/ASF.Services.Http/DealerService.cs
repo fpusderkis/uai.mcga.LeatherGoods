@@ -23,7 +23,7 @@ namespace ASF.Services.Http
             logger.Info("Start to add new cateory");
             try
             {
-                return dealerBusiness.Add(dto);
+                return dealerBusiness.Save(dto);
             }
             catch (Exception ex)
             {
@@ -62,11 +62,11 @@ namespace ASF.Services.Http
 
         [HttpPut]
         [Route("Edit")]
-        public void Edit(Dealer dealer)
+        public Dealer Edit(Dealer dealer)
         {
             try
             {
-                dealerBusiness.Edit(dealer);
+                return dealerBusiness.Save(dealer);
             }
             catch (Exception ex)
             {

@@ -8,20 +8,7 @@ namespace ASF.Business
     public class DealerBusiness
     {
         DealerDAC dealerDAC = new DealerDAC();
-        
-        /// <summary>
-        /// Add method. 
-        /// </summary>
-        /// <param name="dto"></param>
-        /// <returns></returns>
-        public Dealer Add(Dealer dto)
-        {
-
-            dto.CreatedOn = DateTime.Now;
-            dto.ChangedOn = dto.CreatedOn;
-            var saved = dealerDAC.Save(dto);
-            return saved;
-        }
+        CountryBusiness countryBusiness = new CountryBusiness();
 
         /// <summary>
         /// 
@@ -58,11 +45,21 @@ namespace ASF.Business
         /// 
         /// </summary>
         /// <param name="dto"></param>
-        public void Edit(Dealer dto)
+        public Dealer Save(Dealer dto)
         {
 
-
-            var dtoToSave = dealerDAC.SelectById(dto.Id);
+            Dealer dtoToSave;
+            if (dto.Id > 0)
+            {
+                dtoToSave = dealerDAC.SelectById(dto.Id);
+            }
+            else
+            {
+                dtoToSave = new Dealer();
+                dtoToSave.CreatedOn = DateTime.Now;
+                dtoToSave.CreatedBy = dto.CreatedBy;
+            }
+            
 
             if (!String.IsNullOrEmpty(dto.FirstName)) dtoToSave.FirstName = dto.FirstName;
             if (!String.IsNullOrEmpty(dto.Description)) dtoToSave.Description = dto.Description;
@@ -71,7 +68,9 @@ namespace ASF.Business
 
                 if (dto.CountryId != dtoToSave.CountryId)
                 {
+                    if (countryBusiness.Find(dto.CountryId) == null) throw new BusinessException("b.validation.dealer.countryId.invalid");
 
+                    dtoToSave.CountryId = dto.CountryId;
                 }
 
             }
@@ -79,6 +78,7 @@ namespace ASF.Business
             if (!String.IsNullOrEmpty(dto.FirstName)) dtoToSave.FirstName = dto.FirstName;
 
             dtoToSave.ChangedOn = DateTime.Now;
+            dtoToSave.ChangedBy = dto.ChangedBy;
             dealerDAC.Save(dtoToSave);
         }
     }
