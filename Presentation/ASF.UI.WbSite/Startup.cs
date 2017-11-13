@@ -1,11 +1,13 @@
 ﻿[assembly: Microsoft.Owin.OwinStartup(typeof(ASF.UI.WbSite.Startup))]
+[assembly: log4net.Config.XmlConfigurator(ConfigFile = "Web.config", Watch = true)]   
 
 namespace ASF.UI.WbSite
 {
     using System.Web.Mvc;
     using NWebsec.Owin;
     using Owin;
-
+    
+    
     public partial class Startup
     {
         public void Configuration(IAppBuilder app)

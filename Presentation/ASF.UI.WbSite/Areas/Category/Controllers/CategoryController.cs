@@ -10,11 +10,14 @@ namespace ASF.UI.WbSite.Areas.Category.Controllers
 {
     public class CategoryController : Controller
     {
-        private static ASF.UI.Process.CategoryProcess categoryProcess = new Process.CategoryProcess();
+        
+        readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        private static readonly ASF.UI.Process.CategoryProcess categoryProcess = new Process.CategoryProcess();
          // GET: Category/Category
         public ActionResult Index()
         {
-
+            logger.Info("Start index method");
             var resp = categoryProcess.SelectList();
 
             return View("view",resp);
@@ -23,7 +26,9 @@ namespace ASF.UI.WbSite.Areas.Category.Controllers
         // GET: Category/Category/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var category = categoryProcess.GetCategory(id);
+
+            return View(category);
         }
 
         // GET: Category/Category/Create
@@ -34,13 +39,15 @@ namespace ASF.UI.WbSite.Areas.Category.Controllers
 
         // POST: Category/Category/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(ASF.Entities.Category category)
         {
             try
             {
                 // TODO: Add insert logic here
 
-                var category = CustomConverterUtils.MapFormCollection<ASF.Entities.Category>(collection);
+                
+
+                //var category = CustomConverterUtils.MapFormCollection<ASF.Entities.Category>(collection);
 
                 categoryProcess.SaveCategory(category);
 
@@ -55,18 +62,18 @@ namespace ASF.UI.WbSite.Areas.Category.Controllers
         // GET: Category/Category/Edit/5
         public ActionResult Edit(int id)
         {
-            
+            var category = categoryProcess.GetCategory(id);
 
-            return View();
+            return View(category);
         }
 
         // POST: Category/Category/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, ASF.Entities.Category category)
         {
             try
             {
-                
+                categoryProcess.EditCategory(category);
                 return RedirectToAction("Index");
             }
             catch

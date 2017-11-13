@@ -21,21 +21,33 @@ namespace ASF.UI.Process
         /// <returns></returns>
         public List<Category> SelectList()
         {
-            var response = HttpGet<AllResponse>("rest/Category/All", new Dictionary<string, object>(), MediaType.Json);
+            var start = new DateTime().Millisecond;
+            logger.Info("Buscando las categorias");
+            
+            var response = HttpGet<AllResponse<Category>>("rest/Category/All", new Dictionary<string, object>(), MediaType.Json);
+
+            var elapsedTime = DateTime.Now.Millisecond - start;
+            logger.Info($"Termino la busqueda de terminales [elapsedTime: {elapsedTime}]");
             return response.Result;
         }
 
         public Category GetCategory(int id)
         {
-            var resp = HttpGet<AllResponse>("rest/Category/Find/" + id, new Dictionary<string, object>(),MediaType.Json);
+            var resp = HttpGet<FindResponse<Category>>("rest/Category/Find/" + id, new Dictionary<string, object>(),MediaType.Json);
 
-            return resp.Result[0];
+            return resp.Result;
 
         }
 
+        public void EditCategory(Category category)
+        {
+            var resp = HttpPut<Category>("rest/Category/Edit",category);
+        }
 
         public void SaveCategory(Category category)
         {
+
+            var resp = HttpPost<Category>("rest/Category/Add", category);
 
         }
 

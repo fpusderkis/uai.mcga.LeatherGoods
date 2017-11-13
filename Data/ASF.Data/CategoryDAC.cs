@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Data.Common;
 using System.Data;
+using System.Data.Entity;
 using Microsoft.Practices.EnterpriseLibrary.Data;
 using ASF.Entities;
 
@@ -20,67 +21,10 @@ namespace ASF.Data
     /// <summary>
     /// 
     /// </summary>
-    public class CategoryDAC : DataAccessComponent
+    public class CategoryDAC : AbstractDAC<Category>
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="category"></param>
-        /// <returns></returns>
-        public Category Create(Category category)
-        {
-            using (var dbc = DataBaseContext) {
 
-                var savedCategory = dbc.Category.Add(category);
-                dbc.SaveChanges();
-                return savedCategory;
-
-            }
-            
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="category"></param>
-        public void UpdateById(Category category)
-        {
-            using (var dbc = DataBaseContext)
-            {
-                dbc.Entry(category).State = System.Data.Entity.EntityState.Modified;
-                dbc.SaveChanges();
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        public void DeleteById(int id)
-        {
-            using (var dbc = DataBaseContext)
-            {
-                Category category = new Category { Id = id };
-                dbc.Category.Attach(category);
-                dbc.Category.Remove(category);
-
-                dbc.SaveChanges();
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public Category SelectById(int id)
-        {
-            using (var dbc = new LeatherContext())
-            {
-                return dbc.Category.Find(id);
-            }
-        }
-
+       
         /// <summary>
         /// 
         /// </summary>
@@ -88,35 +32,10 @@ namespace ASF.Data
         public List<Category> Select()
         {
 
-
-            using (var dbc = new LeatherContext())
-            {
-                dbc.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-
-                return dbc.Category.ToList();
-            }
-
+            return SelectAll(createContext());
             
         }
-
-        /// <summary>
-        /// Crea una nueva Categoría desde un Datareader.
-        /// </summary>
-        /// <param name="dr">Objeto DataReader.</param>
-        /// <returns>Retorna un objeto Categoria.</returns>		
-        private static Category LoadCategory(IDataReader dr)
-        {
-            var category = new Category
-            {
-                Id = GetDataValue<int>(dr, "Id"),
-                Name = GetDataValue<string>(dr, "Name"),
-                CreatedOn = GetDataValue<DateTime>(dr, "CreatedOn"),
-                CreatedBy = GetDataValue<int>(dr, "CreatedBy"),
-                ChangedOn = GetDataValue<DateTime>(dr, "ChangedOn"),
-                ChangedBy = GetDataValue<int>(dr, "ChangedBy")
-            };
-            return category;
-        }
+        
     }
 }
 
