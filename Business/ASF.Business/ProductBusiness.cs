@@ -35,11 +35,11 @@ namespace ASF.Business
                 ? throw new BusinessException("b.validation.product.title.invalid")
                 : dto.Title;
             
-            update.Rowid = update.Rowid == Guid.Empty 
+            update.Rowid = dto.Rowid == null || dto.Rowid == Guid.Empty 
                 ? Guid.NewGuid()
                 : dto.Rowid;
 
-            if (dto.DealerId <= 0 || dealerBusiness.Find(dto.Id) == null)
+            if (dto.DealerId <= 0 || dealerBusiness.Find(dto.DealerId) == null)
             {
                 throw new BusinessException("b.validation.product.dealer.invalid");
             }
@@ -50,7 +50,7 @@ namespace ASF.Business
             
             
             update.ChangedOn = DateTime.Now;
-            var saved = productDAC.Save(dto);
+            var saved = productDAC.Save(update);
             return saved;
         }
 
